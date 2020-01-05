@@ -290,3 +290,5 @@ public static void main(String[] args) {
     }
 }
 ```
+
+#### Credits to Stephane. Checkout his awesome course on [Udemy](https://www.udemy.com/course/apache-kafka)!
