@@ -34,7 +34,7 @@ public class ConsumerDemoAssignAndSeek {
         // create consumer
         KafkaConsumer<String, String> consumer = new KafkaConsumer<String, String>(properties);
 
-        // assign and seek are used to replay data (or fetch a specific message
+        // assign and seek are used to replay data (or fetch a specific message)
 
         // assign
         TopicPartition partitionToReadFrom = new TopicPartition(topic, 0);
