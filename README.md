@@ -290,3 +290,44 @@ public static void main(String[] args) {
     }
 }
 ```
+
+#### Demo: Using Kafka to consume live tweets
+- See `TwitterProducer.java` for further details
+```java
+logger.info("Setup");
+
+        /** Set up your blocking queues: Be sure to size these properly based on expected TPS of your stream */
+        BlockingQueue<String> msgQueue = new LinkedBlockingQueue<String>(1000);
+
+        // create a twitter client
+        Client client = createTwitterClient(msgQueue);
+        // Attempts to establish a connection.
+        client.connect();
+
+        // create a kafka producer
+        KafkaProducer<String, String> producer = createKafkaProducer();
+
+        // loop to send tweets to kafka
+        // on a different thread, or multiple different threads....
+        while (!client.isDone()) {
+            String msg = null;
+            try {
+                msg = msgQueue.poll(5, TimeUnit.SECONDS);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+                client.stop();
+            }
+            if (msg != null) {
+                logger.info(msg);
+                producer.send(new ProducerRecord<>("twitter_tweets", null, msg), new Callback() {
+                    @Override
+                    public void onCompletion(RecordMetadata recordMetadata, Exception e) {
+                        if (e != null) {
+                            logger.error("Something bad happened", e);
+                        }
+                    }
+                });
+            }
+        }
+        logger.info("End of application");
+```
