@@ -291,7 +291,28 @@ public static void main(String[] args) {
 }
 ```
 
-#### Demo: Using Kafka to consume live tweets
+### Enabling an Idempotent Producer
+- Set producer properties as below:
+```java
+properties.setProperty(ProducerConfig.ENABLE_IDEMPOTENCE_CONFIG, "true");
+```
+
+### Enable Compression 
+- Enable compression by setting `compression.type`. Experiment with different methods!
+```java
+// Enable compression, your network will thank you
+properties.setProperty(ProducerConfig.COMPRESSION_TYPE_CONFIG, "snappy"); // experiment with different methods
+```
+
+### Enable Producer Batching
+- By default, produced messages are sent as soon as they are created. Enable `linger.ms` & `batch.size` to control this flow. 
+```java
+// Enable batch sizing
+properties.setProperty(ProducerConfig.LINGER_MS_CONFIG, "20"); // wait 20ms before sending messages to they can be batched.
+properties.setProperty(ProducerConfig.BATCH_SIZE_CONFIG, Integer.toString(32*1024)); // 32KB Batch Size
+```
+
+#### Using Kafka to consume live tweets
 - See `TwitterProducer.java` for further details
 ```java
         logger.info("Setup");
@@ -331,7 +352,5 @@ public static void main(String[] args) {
         }
         logger.info("End of application");
 ```
-![Java Consumer and Producer Demo](https://aiven.io/assets/img/blog/kafka-producer-consumer-streams.gif)
-
 
 #### Credits to Stephane. Checkout his awesome course on [Udemy](https://www.udemy.com/course/apache-kafka)!
