@@ -331,7 +331,7 @@ public static void main(String[] args) {
         }
         logger.info("End of application");
 ```
-![Java Consumer and Producer Demo](./media/java-tweet-demo.gif)
+![Java Consumer and Producer Demo](https://aiven.io/assets/img/blog/kafka-producer-consumer-streams.gif)
 
 
 #### Credits to Stephane. Checkout his awesome course on [Udemy](https://www.udemy.com/course/apache-kafka)!
