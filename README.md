@@ -294,7 +294,7 @@ public static void main(String[] args) {
 #### Demo: Using Kafka to consume live tweets
 - See `TwitterProducer.java` for further details
 ```java
-logger.info("Setup");
+        logger.info("Setup");
 
         /** Set up your blocking queues: Be sure to size these properly based on expected TPS of your stream */
         BlockingQueue<String> msgQueue = new LinkedBlockingQueue<String>(1000);
@@ -331,5 +331,7 @@ logger.info("Setup");
         }
         logger.info("End of application");
 ```
+![Java Consumer and Producer Demo](./media/java-tweet-demo.gif)
+
 
 #### Credits to Stephane. Checkout his awesome course on [Udemy](https://www.udemy.com/course/apache-kafka)!
